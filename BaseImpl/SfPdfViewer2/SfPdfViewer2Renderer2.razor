@@ -1,0 +1,58 @@
+﻿@using Syncfusion.Blazor;
+@using Syncfusion.Blazor.SfPdfViewer;
+
+<SfPdfViewer2 DocumentPath="@DocumentPath"
+              DownloadFileName="@DownloadFileName"
+              EnableErrorDialog="@EnableErrorDialog"
+              EnableFormFields="@EnableFormFields"
+              ZoomValue="@ZoomValue">
+    <PdfViewerToolbarSettings ToolbarItems="@ToolbarItems"></PdfViewerToolbarSettings>
+    <PdfViewerContextMenuSettings EnableContextMenu="@EnableContextMenu"></PdfViewerContextMenuSettings>
+    <PdfViewerEvents DocumentEdited="@DocumentEdited" DocumentLoaded="@DocumentLoaded"></PdfViewerEvents>
+</SfPdfViewer2>
+
+@code {
+    [Parameter]
+    public string? DownloadFileName { get; set; }
+
+    [Parameter]
+    public bool EnableFormFields { get; set; }
+
+    [Parameter]
+    public int ZoomValue { get; set; }
+
+    [Parameter]
+    public bool EnableErrorDialog { get; set; } = true;
+
+    [Parameter]
+    public SfPdfViewer2Model? ComponentModel { get; set; }
+
+    [Parameter]
+    public string? DocumentPath { get; set; }
+
+    [Parameter]
+    public EventCallback<DocumentEditedEventArgs> DocumentEdited { get; set; }
+
+    [Parameter]
+    public EventCallback<LoadEventArgs> DocumentLoaded { get; set; }
+
+    [Parameter]
+    public bool EnableContextMenu { get; set; } = true;
+
+    [Parameter]
+    public List<ToolbarItem> ToolbarItems { get; set; } = new List<ToolbarItem>
+    {
+        ToolbarItem.OpenOption,
+        ToolbarItem.PageNavigationTool,
+        ToolbarItem.MagnificationTool,
+        ToolbarItem.SelectionTool,
+        ToolbarItem.PanTool,
+        ToolbarItem.UndoRedoTool,
+        ToolbarItem.CommentTool,
+        ToolbarItem.SubmitForm,
+        ToolbarItem.SearchOption,
+        ToolbarItem.AnnotationEditTool,
+        ToolbarItem.PrintOption,
+        ToolbarItem.DownloadOption
+    };
+}
