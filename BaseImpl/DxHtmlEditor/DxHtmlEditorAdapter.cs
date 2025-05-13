@@ -13,7 +13,7 @@ public sealed class DxHtmlEditorAdapter : ComponentAdapterBase
         ComponentModel = componentModel ?? throw new ArgumentNullException(nameof(componentModel));
         ComponentModel.MarkupChanged = EventCallback.Factory.Create<string>(this, (markup) =>
         {
-            if (!EqualityComparer<string>.Default.Equals(componentModel.Markup, markup))
+            if (!componentModel.Markup.Equals(markup) && !ComponentModel.ReadOnly)
             {
                 componentModel.Markup = markup;
                 RaiseValueChanged();
