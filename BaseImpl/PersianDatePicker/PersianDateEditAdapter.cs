@@ -7,7 +7,7 @@ namespace ExpressApp.CustomEditors.Blazor.BaseImpl.PersianDatePicker;
 
 public class PersianDateEditAdapter<T> : DxDateEditAdapter
 {
-    private Notifier notifier;
+    private DevExpress.ExpressApp.Blazor.Components.Models.Notifier notifier;
 
     public override DxDateEditModel<T> ComponentModel { get; }
 
@@ -44,7 +44,7 @@ public class PersianDateEditAdapter<T> : DxDateEditAdapter
         goto IL_00ae;
     IL_00ae:
         ComponentModelBase componentModelBase2 = componentModelBase;
-        notifier = new Notifier(componentModel);
+        notifier = new DevExpress.ExpressApp.Blazor.Components.Models.Notifier(componentModel);
         notifier.Subscribe(componentModelBase2);
         ComponentModel.MaskProperties = componentModelBase2.GetComponentContent();
         return;
@@ -87,12 +87,16 @@ public class PersianDateEditAdapter<T> : DxDateEditAdapter
 
     public override object GetValue()
     {
+#pragma warning disable CS8603 // Possible null reference return.
         return ComponentModel.Date;
+#pragma warning restore CS8603 // Possible null reference return.
     }
 
     public override void SetValue(object value)
     {
-        ComponentModel.Date = ((value == null) ? default(T) : ((T)value));
+#pragma warning disable CS8601 // Possible null reference assignment.
+        ComponentModel.Date = (value == null) ? default : ((T)value);
+#pragma warning restore CS8601 // Possible null reference assignment.
     }
 
     protected override RenderFragment CreateComponent()
