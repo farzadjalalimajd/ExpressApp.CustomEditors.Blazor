@@ -43,6 +43,12 @@
     public EventCallback<Dictionary<string, string>> FormFieldUpdated { get; set; }
 
     [Parameter]
+    public EventCallback ExportingFormFieldStarted { get; set; }
+
+    [Parameter]
+    public EventCallback ExportingFormFieldEnded { get; set; }
+
+    [Parameter]
     public bool EnableContextMenu { get; set; } = true;
 
     [Parameter]
@@ -69,15 +75,19 @@
     {
         if (args.EditingAction == EditingAction.FormFieldUpdated)
         {
+            await ExportingFormFieldStarted.InvokeAsync();
             var formFields = await sfPdfViewer2!.ExportFormFieldsAsObjectAsync();
-
-            this.FormFields.Clear();
-            foreach (var item in formFields)
+            await ExportingFormFieldEnded.InvokeAsync();
+            if (formFields is not null)
             {
-                FormFields.Add(item.Key, item.Value);
-            }
+                this.FormFields.Clear();
+                foreach (var item in formFields)
+                {
+                    FormFields.Add(item.Key, item.Value);
+                }
 
-            await FormFieldUpdated.InvokeAsync(this.FormFields);
+                await FormFieldUpdated.InvokeAsync(this.FormFields);
+            }
         }
     }
 

@@ -57,6 +57,18 @@ public class SfPdfViewer2Model : ComponentModelBase
         set => SetPropertyValue(value);
     }
 
+    public EventCallback ExportingFormFieldStarted
+    {
+        get => GetPropertyValue<EventCallback>();
+        set => SetPropertyValue(value);
+    }
+
+    public EventCallback ExportingFormFieldEnded
+    {
+        get => GetPropertyValue<EventCallback>();
+        set => SetPropertyValue(value);
+    }
+
     public bool EnableContextMenu
     {
         get => GetPropertyValue<bool>(true);
